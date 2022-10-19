@@ -77,17 +77,6 @@ class MRIDataset(Dataset):
         caps_dict = {'single': caps_directory}
         return caps_dict
 
-    def _get_path(self, participant, session, cohort, mode="image"):
-
-        if cohort not in self.caps_dict.keys():
-            raise ValueError('Cohort names in labels and CAPS definitions do not match.')
-
-        image_path = os.path.join(self.caps_dict[cohort], participant, 'raw_data',
-                                  participant + '_' + session
-                                  + FILENAME_TYPE['cropped'] +'.nii.gz')
-        
-        return image_path
-
     def _get_meta_data(self, idx):
         image_idx = idx // self.elem_per_image
         participant = self.df.loc[image_idx, 'participant_id']
